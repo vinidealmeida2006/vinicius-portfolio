@@ -29,7 +29,7 @@ import ostengames from "./company/ostengames.png";
 import QUByte from "./company/QUByte.png";
 
 
-import gambirace from "./gambirace.png";
+import gambirace from "./Gambirace.png";
 import stolenshadow from "./stolenshadow.png";
 import eukaryoteMail from "./eukaryoteMail.png";
 import agir from "./agir.png";
