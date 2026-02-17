@@ -5,7 +5,7 @@ import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 import CanvasLoader from "../Loader";
 
 const Computers = ({ isMobile, modelPosition }) => {
-  const computer = useGLTF("./hero3d/scene.opt.glb");
+  const computer = useGLTF("/hero3d/scene.opt.glb");
 
   return (
     <mesh>
@@ -17,7 +17,7 @@ const Computers = ({ isMobile, modelPosition }) => {
         angle={34}
         penumbra={1}
         intensity={50}
-        castShadow
+        castShadow = {isMobile ? false : true}
         shadow-mapSize={1024}
       />
 
@@ -27,7 +27,7 @@ const Computers = ({ isMobile, modelPosition }) => {
         angle={34}
         penumbra={1}
         intensity={10}
-        castShadow
+        castShadow = {isMobile ? false : true}
         shadow-mapSize={1024}
       />
 
@@ -70,8 +70,7 @@ const ComputersCanvas = () => {
   return (
     <Canvas
       frameloop="always"   // ✅ necessário pro autoRotate funcionar
-      shadows
-      dpr={[1, 2]}
+      dpr={[1, 1.5]}
       camera={{ position: [20, 3, 5], fov: 25 }}
       gl={{ preserveDrawingBuffer: true }}
     >
