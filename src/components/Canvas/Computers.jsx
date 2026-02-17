@@ -1,11 +1,47 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
+import * as THREE from "three";
 
 import CanvasLoader from "../Loader";
 
 const Computers = ({ isMobile, modelPosition }) => {
   const computer = useGLTF("/hero3d/scene.opt.glb");
+
+  // ✅ Corrige geometrias com NaN e recomputa bounds (evita sumir/crash no mobile)
+  useEffect(() => {
+    if (!computer?.scene) return;
+
+    computer.scene.traverse((obj) => {
+      if (!obj.isMesh || !obj.geometry) return;
+
+      const geo = obj.geometry;
+      const posAttr = geo.attributes?.position;
+
+      if (posAttr) {
+        // remove NaN / Infinity no position
+        for (let i = 0; i < posAttr.count; i++) {
+          const x = posAttr.getX(i);
+          const y = posAttr.getY(i);
+          const z = posAttr.getZ(i);
+
+          if (!Number.isFinite(x) || !Number.isFinite(y) || !Number.isFinite(z)) {
+            posAttr.setXYZ(i, 0, 0, 0);
+          }
+        }
+        posAttr.needsUpdate = true;
+      }
+
+      // recomputa bounds (onde estourou o erro)
+      try {
+        geo.computeBoundingBox();
+        geo.computeBoundingSphere();
+      } catch (e) {
+        // fallback: se ainda assim der ruim, desabilita frustum culling desse mesh
+        obj.frustumCulled = false;
+      }
+    });
+  }, [computer]);
 
   return (
     <mesh>
@@ -17,7 +53,7 @@ const Computers = ({ isMobile, modelPosition }) => {
         angle={34}
         penumbra={1}
         intensity={50}
-        castShadow = {isMobile ? false : true}
+        castShadow={!isMobile}
         shadow-mapSize={1024}
       />
 
@@ -27,7 +63,7 @@ const Computers = ({ isMobile, modelPosition }) => {
         angle={34}
         penumbra={1}
         intensity={10}
-        castShadow = {isMobile ? false : true}
+        castShadow={!isMobile}
         shadow-mapSize={1024}
       />
 
@@ -60,19 +96,15 @@ const ComputersCanvas = () => {
   const modelPosition = isMobile ? [-2, -1, -2.2] : [-20, -6, 0];
 
   // ✅ TARGET responsivo derivado do modelPosition (mantém o giro “parado”)
-  // mesma lógica do desktop: mesmo X/Z e Y um pouco mais alto
-  const controlsTarget = [
-    modelPosition[0],
-    modelPosition[1] + 2.5, // "um pouco mais alto" (no desktop era -6 -> -2.5, diferença 3.5)
-    modelPosition[2],
-  ];
+  const controlsTarget = [modelPosition[0], modelPosition[1] + 2.5, modelPosition[2]];
 
   return (
     <Canvas
-      frameloop="always"   // ✅ necessário pro autoRotate funcionar
-      dpr={[1, 1.5]}
+      frameloop="always" // ✅ necessário pro autoRotate funcionar
+      dpr={[1, 1.25]} // ✅ um pouco mais leve no mobile (você pode voltar pra 1.5 depois)
       camera={{ position: [20, 3, 5], fov: 25 }}
-      gl={{ preserveDrawingBuffer: true }}
+      // ✅ remove preserveDrawingBuffer (costuma estourar memória no mobile)
+      gl={{ antialias: false, powerPreference: "high-performance" }}
     >
       <Suspense fallback={<CanvasLoader />}>
         <OrbitControls
