@@ -24,6 +24,7 @@ import {
   slaptower,
   baseEstelar,
   threejs,
+  threejswhite,
   link,
 } from "../assets";
 
@@ -103,10 +104,12 @@ const technologies = [
   {
     name: "Three JS",
     icon: threejs,
+    iconMobile: threejswhite,
   },
   {
     name: "git",
     icon: github,
+    iconMobile: githubwhite,
   },
   {
     name: "figma",

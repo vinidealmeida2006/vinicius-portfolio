@@ -18,14 +18,15 @@ const Tech = () => {
     <div className="flex flex-row flex-wrap justify-center gap-10">
       {technologies.map((technology) =>
         isMobile ? (
-          // ✅ MOBILE: sem Canvas (evita estourar WebGL contexts)
+          // ✅ MOBILE: versão 2D com suporte a iconMobile
           <div
             key={technology.name}
             className="w-28 h-28 rounded-full bg-tertiary flex items-center justify-center shadow-card"
             title={technology.name}
           >
             <img
-              src={technology.icon}
+              // 🔥 Aqui está a única mudança necessária
+              src={technology.iconMobile ?? technology.icon}
               alt={technology.name}
               className="w-16 h-16 object-contain"
               loading="lazy"

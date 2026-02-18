@@ -8,6 +8,7 @@ import menu from "./menu.svg";
 import close from "./close.svg";
 import linkedin from "./brand-linkedin.svg"; 
 import githubwhite from "./githubwhite.png";
+import threejswhite from "./threejs-white.png";
 import iconeLinkedin from "./iconeLinkedin.png";
 import link from "./link.png";
 import emailIcon from "./emailIcon.png";
@@ -69,5 +70,6 @@ export {
   baseEstelar,
   link,
   iconeLinkedin,
+  threejswhite,
   emailIcon
 };

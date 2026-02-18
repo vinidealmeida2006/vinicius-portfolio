@@ -32,12 +32,10 @@ const Computers = ({ isMobile, modelPosition }) => {
         posAttr.needsUpdate = true;
       }
 
-      // recomputa bounds (onde estourou o erro)
       try {
         geo.computeBoundingBox();
         geo.computeBoundingSphere();
       } catch (e) {
-        // fallback: se ainda assim der ruim, desabilita frustum culling desse mesh
         obj.frustumCulled = false;
       }
     });
@@ -92,19 +90,15 @@ const ComputersCanvas = () => {
     return () => mediaQuery.removeEventListener("change", handleMediaQueryChange);
   }, []);
 
-  // ✅ POSIÇÃO do modelo por modo (mantido)
   const modelPosition = isMobile ? [-2, -1, -2.2] : [-20, -6, 0];
-
-  // ✅ TARGET responsivo derivado do modelPosition (mantém o giro “parado”)
   const controlsTarget = [modelPosition[0], modelPosition[1] + 2.5, modelPosition[2]];
 
   return (
     <Canvas
-      frameloop="always" // ✅ necessário pro autoRotate funcionar
-      dpr={[1, 1.25]} // ✅ um pouco mais leve no mobile (você pode voltar pra 1.5 depois)
+      frameloop="always" // ✅ autoRotate precisa disso
+      dpr={[1, 1.25]}
       camera={{ position: [20, 3, 5], fov: 25 }}
-      // ✅ remove preserveDrawingBuffer (costuma estourar memória no mobile)
-      gl={{ antialias: false, powerPreference: "high-performance" }}
+      gl={{ antialias: !isMobile, powerPreference: "high-performance" }}
     >
       <Suspense fallback={<CanvasLoader />}>
         <OrbitControls
@@ -115,6 +109,10 @@ const ComputersCanvas = () => {
           minPolarAngle={Math.PI / 2}
           autoRotate
           autoRotateSpeed={0.6}
+          // ✅ DESKTOP interativo, MOBILE não (para não atrapalhar o scroll)
+          enableRotate={!isMobile}
+          // ✅ desliga gestos no mobile (evita scroll virar “drag”)
+          touches={isMobile ? { ONE: 0, TWO: 0 } : undefined}
         />
         <Computers isMobile={isMobile} modelPosition={modelPosition} />
       </Suspense>
