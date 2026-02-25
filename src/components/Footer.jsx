@@ -1,15 +1,12 @@
 import React from "react";
 import { githubwhite, iconeLinkedin, emailIcon } from "../assets";
-import logo from "../assets/logo.svg"; 
-// ⚠️ Ajuste o caminho do seu logo caso esteja em outro lugar, ex:
-// import logo from "../assets/logo.png";
+import logo from "../assets/logo.svg";
 
 const Footer = () => {
   const scrollToSection = (id) => {
     const el = document.getElementById(id);
     if (!el) return;
 
-    // scroll suave para seção
     el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
@@ -21,11 +18,12 @@ const Footer = () => {
     <footer className="relative mt-20">
       {/* fundo igual ao hero */}
       <div className="bg-hero-pattern bg-cover bg-no-repeat bg-center">
-        {/* overlay escuro pra dar leitura */}
+        {/* overlay escuro */}
         <div className="bg-black/60">
           <div className="max-w-6xl mx-auto px-6 sm:px-10 py-14">
             <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-12">
-              {/* Coluna esquerda (logo + texto + botão topo) */}
+              
+              {/* Coluna esquerda */}
               <div className="flex flex-col gap-4">
                 <div className="flex items-center gap-3">
                   <button
@@ -49,7 +47,7 @@ const Footer = () => {
                 </p>
               </div>
 
-              {/* Coluna do meio (Quick Links) */}
+              {/* Coluna do meio */}
               <div className="flex flex-col gap-4">
                 <h4 className="text-white font-semibold text-base">
                   Navigation
@@ -91,54 +89,79 @@ const Footer = () => {
                 </ul>
               </div>
 
-              {/* Coluna direita (Social Links) */}
+              {/* Coluna direita */}
               <div className="flex flex-col gap-4">
                 <h4 className="text-white font-semibold text-base">
                   Let’s Connect
                 </h4>
 
-                   <div className="flex items-center gap-3">
-                      <a
-                        href="https://github.com/vinidealmeida2006"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="w-11 h-11 rounded-full border border-white/30 flex items-center justify-center hover:border-white/60 hover:bg-white/10 transition"
-                        aria-label="GitHub"
-                        title="GitHub"
-                      >
-                        <img src={githubwhite} alt="githubwhite" className="w-7 h-7 object-contain" />
-                      </a>
+                <div className="flex items-center gap-3">
+                  <a
+                    href="https://github.com/vinidealmeida2006"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-11 h-11 rounded-full border border-white/30 flex items-center justify-center hover:border-white/60 hover:bg-white/10 transition"
+                    aria-label="GitHub"
+                    title="GitHub"
+                  >
+                    <img src={githubwhite} alt="GitHub" className="w-7 h-7 object-contain" />
+                  </a>
 
-                      <a
-                        href="https://www.linkedin.com/in/vinicius-filipe-de-almeida-santos/"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="w-11 h-11 rounded-full border border-white/30 flex items-center justify-center hover:border-white/60 hover:bg-white/10 transition"
-                        aria-label="LinkedIn"
-                        title="LinkedIn"
-                      >
-                        <img src={iconeLinkedin} alt="LinkedIn" className="w-7 h-7 object-contain" />
-                      </a>
+                  <a
+                    href="https://www.linkedin.com/in/vinicius-filipe-de-almeida-santos/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-11 h-11 rounded-full border border-white/30 flex items-center justify-center hover:border-white/60 hover:bg-white/10 transition"
+                    aria-label="LinkedIn"
+                    title="LinkedIn"
+                  >
+                    <img src={iconeLinkedin} alt="LinkedIn" className="w-7 h-7 object-contain" />
+                  </a>
 
-                      <a
-                        href="mailto: vinidealmeida2006@gmail.com"
-                        className="w-11 h-11 rounded-full border border-white/30 flex items-center justify-center hover:border-white/60 hover:bg-white/10 transition"
-                        aria-label="Email"
-                        title="Email"
-                      >
-                        <img src={emailIcon} alt="Email" className="w-7 h-7 object-contain" />
-                      </a>
-                    </div>
+                  <a
+                    href="mailto: vinidealmeida2006@gmail.com"
+                    className="w-11 h-11 rounded-full border border-white/30 flex items-center justify-center hover:border-white/60 hover:bg-white/10 transition"
+                    aria-label="Email"
+                    title="Email"
+                  >
+                    <img src={emailIcon} alt="Email" className="w-7 h-7 object-contain" />
+                  </a>
+                </div>
               </div>
             </div>
 
             {/* Linha divisória */}
             <div className="mt-10 h-px w-full bg-white/15" />
 
-            {/* Copyright */}
-            <p className="text-center text-sm text-secondary mt-6">
-              © {new Date().getFullYear()} Portfolio. All rights reserved.
-            </p>
+            {/* Copyright + Credits */}
+            <div className="text-center mt-6 space-y-3">
+              <p className="text-sm text-secondary">
+                © {new Date().getFullYear()} Portfolio. All rights reserved.
+              </p>
+
+              <p className="text-xs text-gray-400 leading-relaxed max-w-2xl mx-auto">
+                3D assets used under CC-BY-4.0 license:
+                <br />
+                <a
+                  href="https://sketchfab.com/3d-models/fire-in-the-sky-06d903f5dc5245699adf38192f77fbb6"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-white transition underline underline-offset-4"
+                >
+                  "Fire in the Sky" by WON
+                </a>
+                {" "}and{" "}
+                <a
+                  href="https://sketchfab.com/3d-models/stylized-planet-789725db86f547fc9163b00f302c3e70"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-white transition underline underline-offset-4"
+                >
+                  "Stylized Planet"
+                </a>.
+              </p>
+            </div>
+
           </div>
         </div>
       </div>

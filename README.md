@@ -14,3 +14,15 @@ The React Compiler is not enabled on this template because of its impact on dev 
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+## 3D Model Credits
+
+This project uses 3D models from Sketchfab (CC-BY 4.0):
+
+- **Fire in the Sky** — by **WON**  
+  Source: https://sketchfab.com/3d-models/fire-in-the-sky-06d903f5dc5245699adf38192f77fbb6  
+  License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+
+- **Stylized Planet**  
+  Source: https://sketchfab.com/3d-models/stylized-planet-789725db86f547fc9163b00f302c3e70  
+  License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
